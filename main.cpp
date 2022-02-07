@@ -14,7 +14,7 @@ public:
 	 */
 	void GetNextArr1(vector<int>& next, string pattern) {
 		int j = 0, len = next.size();
-		for (int i = 1; i < len; ++i) {
+		for (int i = 1; i < len; i++) {
 			// 回退
 			while (j > 0 && pattern[i] != pattern[j]) {
 				j = next[j - 1];
