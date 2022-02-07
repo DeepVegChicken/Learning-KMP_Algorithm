@@ -109,7 +109,7 @@ public:
 	int KMP2_1(string text, string pattern, vector<int>& next) {
 		int j = 0;
 		int m = text.size(), n = pattern.size();
-		for (int i = 1; i < m; i++) {
+		for (int i = 0; i < m; i++) {
 			while (j > 0 && text[i] != pattern[j]) {
 				j = next[j];
 			}
@@ -132,7 +132,7 @@ public:
 	void KMP2_2(string text, string pattern, vector<int>& next, vector<int>& retStarArr) {
 		int j = 0;
 		int	m = text.size(), n = pattern.size();
-		for (int i = 1; i < m; i++) {
+		for (int i = 0; i < m; i++) {
 			while (j > 0 && text[i] != pattern[j]) {
 				j = next[j];
 			}
