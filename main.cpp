@@ -9,36 +9,36 @@ class GetNext {
 public:
 	/*
 	 * Func: GetNextArr1
-	 * °´Ô­Î»ÖÃÉú³ÉnextÊı×é
-	 * ÀıÈç£ºaaab -> [0,1,2,0]
+	 * æŒ‰åŸä½ç½®ç”Ÿæˆnextæ•°ç»„
+	 * ä¾‹å¦‚ï¼šaaab -> [0,1,2,0]
 	 */
 	void GetNextArr1(vector<int>& next, string pattern) {
 		int j = 0, len = next.size();
 		for (int i = 1; i < len; ++i) {
-			// »ØÍË
+			// å›é€€
 			while (j > 0 && pattern[i] != pattern[j]) {
 				j = next[j - 1];
 			}
 			if (pattern[i] == pattern[j]) {
-				next[i] = ++j;
+				next[i] = j++;
 			}
 		}
 	}
 
 	/*
 	 * Func: GetNextArr2
-	 * ÏòÓÒÆ½ÒÆÒ»¸öÉú³ÉnextÊı×é£¬ÆäÖĞnext[0] = -1
-	 * ÀıÈç£ºaaab -> [-1,0,1,2]
+	 * å‘å³å¹³ç§»ä¸€ä¸ªç”Ÿæˆnextæ•°ç»„ï¼Œå…¶ä¸­next[0] = -1
+	 * ä¾‹å¦‚ï¼šaaab -> [-1,0,1,2]
 	 */
 	void GetNextArr2(vector<int>& next, string pattern) {
-		// ³õÊ¼Î»Îª-1£¬¼´next[-1, ... ...]
+		// åˆå§‹ä½ä¸º-1ï¼Œå³next[-1, ... ...]
 		next[0] = -1;
 
-		int j = 0, len = next.size();	// jÉèÎªÇ°×ºÄ©Î²
+		int j = 0, len = next.size();	// jè®¾ä¸ºå‰ç¼€æœ«å°¾
 		for (int i = 1; i < len; i++) {
 			next[i] = j;
 
-			// »ØÍË
+			// å›é€€
 			while (j > 0 && pattern[i] != pattern[j]) {
 				j = next[j];
 			}
@@ -53,9 +53,9 @@ class KMP {
 public:
 	/*
 	 * Func: KMP1_1
-	 * °´Ô­Î»ÖÃÉú³ÉnextÊı×éµÄKMPËã·¨ÊµÏÖ
-	 * Ö»ÕÒ³öµÚÒ»×éÆ¥ÅäµÄ×Ö·û´®
-	 * Return: Æ¥ÅäÊ§°Ü·µ»Ø-1£¬³É¹¦Ôò·µ»ØÍ·Î»ÖÃ
+	 * æŒ‰åŸä½ç½®ç”Ÿæˆnextæ•°ç»„çš„KMPç®—æ³•å®ç°
+	 * åªæ‰¾å‡ºç¬¬ä¸€ç»„åŒ¹é…çš„å­—ç¬¦ä¸²
+	 * Return: åŒ¹é…å¤±è´¥è¿”å›-1ï¼ŒæˆåŠŸåˆ™è¿”å›å¤´ä½ç½®
 	 */
 	int KMP1_1(string text, string pattern, vector<int>& next) {
 		int j = 0;
@@ -67,7 +67,7 @@ public:
 			if (text[i] == pattern[j]) {
 				j++;
 			}
-			// Æ¥Åä³É¹¦
+			// åŒ¹é…æˆåŠŸ
 			if (j == n) {
 				return i - n + 1;
 			}
@@ -77,11 +77,11 @@ public:
 
 	/*
 	 * Func: KMP1_2
-	 * °´Ô­Î»ÖÃÉú³ÉnextÊı×éµÄKMPËã·¨ÊµÏÖ
-	 * ¿ÉÕÒ³ö¶à×éÆ¥ÅäµÄ×Ö·û´®
+	 * æŒ‰åŸä½ç½®ç”Ÿæˆnextæ•°ç»„çš„KMPç®—æ³•å®ç°
+	 * å¯æ‰¾å‡ºå¤šç»„åŒ¹é…çš„å­—ç¬¦ä¸²
 	 */
 	void KMP1_2(string text, string pattern, vector<int>& next, vector<int>& retStarArr) {
-		// »ñÈ¡nextÊı×é
+		// è·å–nextæ•°ç»„
 		int j = 0;
 		int	m = text.size(), n = pattern.size();
 		for (int i = 0, j = 0; i < m; i++) {
@@ -91,7 +91,7 @@ public:
 			if (text[i] == pattern[j]) {
 				j++;
 			}
-			// Æ¥Åä³É¹¦
+			// åŒ¹é…æˆåŠŸ
 			if (j == n) {
 				retStarArr.push_back(i - n + 1);
 				j = 0;
@@ -102,9 +102,9 @@ public:
 
 	/*
 	 * Func: KMP2_1
-	 * nextÊı×éÏòÓÒÆ½ÒÆÒ»¸ñµÄKMPËã·¨ÊµÏÖ
-	 * Ö»ÕÒ³öµÚÒ»×éÆ¥ÅäµÄ×Ö·û´®
-	 * Return: Æ¥ÅäÊ§°Ü·µ»Ø-1£¬³É¹¦Ôò·µ»ØÍ·Î»ÖÃ
+	 * nextæ•°ç»„å‘å³å¹³ç§»ä¸€æ ¼çš„KMPç®—æ³•å®ç°
+	 * åªæ‰¾å‡ºç¬¬ä¸€ç»„åŒ¹é…çš„å­—ç¬¦ä¸²
+	 * Return: åŒ¹é…å¤±è´¥è¿”å›-1ï¼ŒæˆåŠŸåˆ™è¿”å›å¤´ä½ç½®
 	 */
 	int KMP2_1(string text, string pattern, vector<int>& next) {
 		int j = 0;
@@ -116,7 +116,7 @@ public:
 			if (text[i] == pattern[j]) {
 				j++;
 			}
-			// Æ¥Åä³É¹¦
+			// åŒ¹é…æˆåŠŸ
 			if (j == n) {
 				return i - n + 1;
 			}
@@ -126,8 +126,8 @@ public:
 
 	/*
 	 * Func: KMP2_2
-	 * nextÊı×éÏòÓÒÆ½ÒÆÒ»¸ñµÄKMPËã·¨ÊµÏÖ
-	 * ¿ÉÕÒ³ö¶à×éÆ¥ÅäµÄ×Ö·û´®
+	 * nextæ•°ç»„å‘å³å¹³ç§»ä¸€æ ¼çš„KMPç®—æ³•å®ç°
+	 * å¯æ‰¾å‡ºå¤šç»„åŒ¹é…çš„å­—ç¬¦ä¸²
 	 */
 	void KMP2_2(string text, string pattern, vector<int>& next, vector<int>& retStarArr) {
 		int j = 0;
@@ -139,7 +139,7 @@ public:
 			if (text[i] == pattern[j]) {
 				j++;
 			}
-			// Æ¥Åä³É¹¦
+			// åŒ¹é…æˆåŠŸ
 			if (j == n) {
 				retStarArr.push_back(i - n + 1);
 				j = 0;
@@ -199,26 +199,26 @@ int main() {
 			return -1;
 		}
 
-		// ×Ö·û´®³¤¶È
+		// å­—ç¬¦ä¸²é•¿åº¦
 		int tLen = text.size(), pLen = pattern.size();
 
 		/*
-		 * °´Ô­Î»ÖÃÉú³ÉµÄnextÊı×é
+		 * æŒ‰åŸä½ç½®ç”Ÿæˆçš„nextæ•°ç»„
 		 */
-		cout << "°´Ô­Î»ÖÃÉú³ÉnextÊı×é: " << endl;
+		cout << "æŒ‰åŸä½ç½®ç”Ÿæˆnextæ•°ç»„: " << endl;
 
 		vector<int> next1(pLen), retArr1;
 		GetNext().GetNextArr1(next1, pattern);
-		Printf(next1);	// ÑéÖ¤nextÊı×éÉú³ÉÊÇ·ñÕıÈ·
+		Printf(next1);	// éªŒè¯nextæ•°ç»„ç”Ÿæˆæ˜¯å¦æ­£ç¡®
 
-		// ¢Ù
+		// â‘ 
 		int num1 = KMP().KMP1_1(text, pattern, next1);
 		cout << num1 << endl;
-		// ¢Ú
+		// â‘¡
 		KMP().KMP1_2(text, pattern, next1, retArr1);
 		if (retArr1.empty()) {
-			// ÒòÎª·µ»Ø-1ºó±àÒëÆ÷Ö±½Ó¾Í½áÊø³ÌĞòÁË
-			// ËùÒÔµ±Óöµ½²»Æ¥ÅäµÄÊ±ºò·µ»Ø-1Ê±£¬ÏëÒª²âÊÔÏÂÃæµÄ·½·¨¾ÍµÃµ¥¶À²âÊÔ
+			// å› ä¸ºè¿”å›-1åç¼–è¯‘å™¨ç›´æ¥å°±ç»“æŸç¨‹åºäº†
+			// æ‰€ä»¥å½“é‡åˆ°ä¸åŒ¹é…çš„æ—¶å€™è¿”å›-1æ—¶ï¼Œæƒ³è¦æµ‹è¯•ä¸‹é¢çš„æ–¹æ³•å°±å¾—å•ç‹¬æµ‹è¯•
 			return -1;
 		}
 		else {
@@ -228,18 +228,18 @@ int main() {
 		cout << endl;
 
 		/*
-		 * ÏòÓÒÆ½ÒÆÒ»¸öÉú³ÉµÄnextÊı×é
+		 * å‘å³å¹³ç§»ä¸€ä¸ªç”Ÿæˆçš„nextæ•°ç»„
 		 */
-		cout << "ÏòÓÒÆ½ÒÆÒ»¸öÉú³ÉnextÊı×é: " << endl;
+		cout << "å‘å³å¹³ç§»ä¸€ä¸ªç”Ÿæˆnextæ•°ç»„: " << endl;
 
 		vector<int> next2(pLen), retArr2;
 		GetNext().GetNextArr2(next2, pattern);
-		Printf(next2);	// ÑéÖ¤nextÊı×éÉú³ÉÊÇ·ñÕıÈ·
+		Printf(next2);	// éªŒè¯nextæ•°ç»„ç”Ÿæˆæ˜¯å¦æ­£ç¡®
 
-		// ¢Ù
+		// â‘ 
 		int num2 = KMP().KMP2_1(text, pattern, next2);
 		cout << num2 << endl;
-		// ¢Ú
+		// â‘¡
 		KMP().KMP2_2(text, pattern, next2, retArr2);
 		if (retArr2.empty()) {
 			return -1;
